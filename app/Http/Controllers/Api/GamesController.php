@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Model\Dto\GameDeleteCommand;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Model\Dto\GameCreateCommand;
@@ -80,6 +81,12 @@ class GamesController extends AbstractBasicController
      */
     public function delete(Request $request, int $id)
     {
-        return $this->repository->delete($request, $id);
+        $gameDeleteCommand = new GameDeleteCommand();
+        $gameDeleteCommand->fill([
+            'id'        => $id,
+            'request'   => $request
+        ]);
+
+        return $this->repository->commandDelete($gameDeleteCommand);
     }
 }

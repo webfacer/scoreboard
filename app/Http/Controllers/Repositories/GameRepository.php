@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Repositories;
 
 
+use App\Model\Dto\GameDeleteCommand;
 use App\Model\Game;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -63,15 +64,14 @@ class GameRepository extends Repository
     /**
      * Delete Action
      *
-     * @param Request $request
-     * @param int $id
+     * @param GameDeleteCommand $gameDeleteCommand
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    /*public function delete(Request $request, int $id)
+    public function commandDelete(GameDeleteCommand $gameDeleteCommand)
     {
-        return parent::delete($id, function ($model) use ($request, $id) {
-            return $model::find($id);
+        return parent::delete(function ($model) use ($gameDeleteCommand) {
+            return $model::find($gameDeleteCommand->getAttribute('id'));
         });
-    }*/
+    }
 }
