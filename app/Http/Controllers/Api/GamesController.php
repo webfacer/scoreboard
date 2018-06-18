@@ -9,8 +9,9 @@
 namespace App\Http\Controllers\Api;
 
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Model\Dto\GameCreateCommand;
 use App\Model\Dto\GameUpdateCommand;
 use App\Http\Controllers\Repositories\GameRepository;
 
@@ -42,7 +43,12 @@ class GamesController extends AbstractBasicController
      */
     public function create(Request $request)
     {
-        return $this->repository->commandCreate($request);
+        $gameCreateCommand = new GameCreateCommand;
+        $gameCreateCommand->fill([
+            'request'   => $request
+        ]);
+
+        return $this->repository->commandCreate($gameCreateCommand);
     }
 
 
