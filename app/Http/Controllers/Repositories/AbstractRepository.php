@@ -78,7 +78,7 @@ abstract class AbstractRepository
      *
      * @param \Closure $closure
      *
-     * @return object
+     * @return JsonResponse
      */
     public function save(\Closure $closure)
     {
@@ -96,7 +96,7 @@ abstract class AbstractRepository
     /**
      * @param \Closure $closure
      *
-     * @return object
+     * @return JsonResponse
      * @internal param int $id
      */
     public function update(\Closure $closure)

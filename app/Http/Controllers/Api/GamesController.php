@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Api;
 
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Model\Dto\GameUpdateCommand;
 use App\Http\Controllers\Repositories\GameRepository;
@@ -37,7 +38,7 @@ class GamesController extends AbstractBasicController
     /**
      * @param Request $request
      *
-     * @return object
+     * @return JsonResponse
      */
     public function create(Request $request)
     {
@@ -49,23 +50,15 @@ class GamesController extends AbstractBasicController
      * @param Request $request
      * @param int $id
      *
-     * @return object
+     * @return JsonResponse
      */
     public function update(Request $request, $id)
     {
         $gameUpdateCommand = new GameUpdateCommand();
-        $gameUpdateCommand->setId($id);
-        $gameUpdateCommand->setRequest($request);
-        /*
-         * @todo: typeconverter entwickeln
-        $convertIntoGame = [$id, $request];
-        $typeconvert = new TypeConvert;
-        $updateCommand = $typeconvert->convertTo(
-            $convertIntoGame,   // id, request
-            GameUpdateCommand::class  // speist id und request
-        );
-        // result $updateCommand : Game->id
-        */
+        $gameUpdateCommand->fill([
+            'id'            => $id,
+            'request'       => $request,
+        ]);
 
         return $this->repository->commandUpdate($gameUpdateCommand);
     }

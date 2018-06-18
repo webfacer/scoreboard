@@ -9,6 +9,8 @@
 namespace App\Http\Controllers\Repositories;
 
 
+use Illuminate\Http\JsonResponse;
+
 /**
  * Class Repository
  * @package App\Http\Controllers\Repositories
@@ -20,7 +22,7 @@ class Repository extends AbstractRepository
     /**
      * @param \Closure $closure
      *
-     * @return object
+     * @return JsonResponse
      */
     public function save(\Closure $closure)
     {
@@ -30,7 +32,7 @@ class Repository extends AbstractRepository
     /**
      * @param \Closure $closure
      *
-     * @return object
+     * @return JsonResponse
      */
     public function update(\Closure $closure)
     {

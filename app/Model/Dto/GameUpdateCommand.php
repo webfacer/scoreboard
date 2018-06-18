@@ -24,6 +24,14 @@ class GameUpdateCommand extends Model
      */
     protected $request;
 
+    /**
+     * @var array $fillable
+     */
+    protected $fillable = [
+        'id',
+        'request',
+    ];
+
 
     public function __construct()
     {

@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Repositories;
 
 use App\Model\Game;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Model\Dto\GameUpdateCommand;
 
@@ -30,7 +31,7 @@ class GameRepository extends Repository
     /**
      * @param Request $request
      *
-     * @return object
+     * @return JsonResponse
      */
     public function commandCreate(Request $request)
     {
@@ -45,19 +46,16 @@ class GameRepository extends Repository
     /**
      * @param GameUpdateCommand $gameUpdateCommand
      *
-     * @return object
+     * @return JsonResponse
      */
     public function commandUpdate(GameUpdateCommand $gameUpdateCommand)
     {
         return parent::update(function (Model $model) use ($gameUpdateCommand) {
-            /** @var Request $request */
-            $request = $gameUpdateCommand->getRequest();
-            $model = $model::find( $gameUpdateCommand->getId() );
-
+            $request = $gameUpdateCommand->getAttribute('request');
+            $model = $model::find( $gameUpdateCommand->getAttribute('id') );
             $model->fill([
                 'name'      => $request->name,
                 'initials'    => $request->initials
-
             ]);
 
             return $model;
