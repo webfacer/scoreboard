@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Davor Ilic
+ * User: webfacer
  * Date: 21.10.2017
  * Time: 08:36
  */
@@ -11,6 +11,10 @@ namespace App\Http\Controllers\Interfaces;
 
 use Illuminate\Http\Request;
 
+/**
+ * Interface CrudInterface
+ * @package App\Http\Controllers\Interfaces
+ */
 interface CrudInterface
 {
     /**

@@ -8,18 +8,21 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\Player;
 use Illuminate\Http\Request;
 
+/**
+ * Class PlayersController
+ * @package App\Http\Controllers\Api
+ */
 class PlayersController extends AbstractBasicController
 {
     /**
-     * CoinsController constructor.
-     * Initialize the Model
+     * PlayersController constructor.
      */
     public function __construct()
     {
-        $this->repository = new Playr();
-        parent::__construct();
+        parent::__construct(new Player());
     }
 
 
@@ -32,7 +35,7 @@ class PlayersController extends AbstractBasicController
      */
     public function create(Request $request)
     {
-        return $this->save(function ($model) use ($request) {
+        return $this->resave(function ($model) use ($request) {
             $model->fill([
                 'name'      => $request->name,
                 #'image'      => $request->image,

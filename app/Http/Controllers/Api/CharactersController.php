@@ -2,21 +2,35 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Model\Character;
 use Illuminate\Http\Request;
+use App\Model\Dto\Character\CharacterCreateCommand;
+use App\Model\Dto\Character\CharacterDeleteCommand;
+use App\Model\Dto\Character\CharacterUpdateCommand;
+use App\Http\Controllers\Repositories\CharacterRepository;
 
+/**
+ * Class CharactersController
+ * @package App\Http\Controllers\Api
+ */
 class CharactersController extends AbstractBasicController
 {
+
     /**
      * CoinsController constructor.
-     * Initialize the Model
+     * Initialize the Repository
      */
     public function __construct()
     {
-        $this->model = new Character();
-        parent::__construct();
+        $this->repository = new CharacterRepository();
     }
 
+    /**
+     * @return mixed
+     */
+    public function read()
+    {
+        return $this->repository->read();
+    }
 
     /**
      * Create Method
@@ -27,7 +41,13 @@ class CharactersController extends AbstractBasicController
      */
     public function create(Request $request)
     {
-        return $this->create($request);
+        $characterCreateCommand = new CharacterCreateCommand();
+        $characterCreateCommand->fill([
+            'name'   => $request->get('name'),
+            'initials' => $request->get('initials'),
+        ]);
+
+        return $this->repository->commandCreate($characterCreateCommand);
     }
 
 
@@ -37,18 +57,16 @@ class CharactersController extends AbstractBasicController
      *
      * @return object
      */
-    public function updateAction(Request $request, int $id)
+    public function update(Request $request, int $id)
     {
-        return $this->update(function ($model) use ($request, $id) {
-            $model = $model::find($id);
-            $model->fill([
-                'name'      => $request->name,
-                #'image'      => $request->image,
-                'initials'    => $request->initials,
-            ]);
+        $characterUpdateCommand = new CharacterUpdateCommand();
+        $characterUpdateCommand->fill([
+            'id' => $id,
+            'name' => $request->get('name'),
+            'initials' => $request->get('initials'),
+        ]);
 
-            return $model;
-        });
+        return $this->repository->commandUpdate($characterUpdateCommand);
     }
 
 
@@ -61,7 +79,7 @@ class CharactersController extends AbstractBasicController
      */
     public function filterById(Request $request)
     {
-        // @todo validate herer
+        // @todo validate this
         $wClause = ['id' => ['=', intval($request->id)]];
         return $this->get($wClause);
     }
@@ -76,7 +94,7 @@ class CharactersController extends AbstractBasicController
      */
     public function filterByInitials(Request $request)
     {
-        // @todo validate herer
+        // @todo validate this
         $wClause = ['initials' => ['like', '%'.(string) $request->symbol.'%']];
         return $this->get($wClause);
     }
@@ -90,11 +108,11 @@ class CharactersController extends AbstractBasicController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function deleteAction(Request $request, int $id)
+    public function delete(Request $request, int $id)
     {
-        return $this->delete($id, function ($model) use ($request, $id) {
-            $model = $model::find($id);
-            return $model;
-        });
+        $characterDeleteCommand = new CharacterDeleteCommand();
+        $characterDeleteCommand->fill(['id' => $id]);
+
+        return $this->repository->commandDelete($characterDeleteCommand);
     }
 }

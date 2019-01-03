@@ -20,28 +20,7 @@ Route::get('/welcome', function () {
 });
 
 
-function initRouteConfig($actions) {
-    $route = null;
-    foreach ($actions as $requestType => $action) {
-        foreach ($action as $action => $option) {
-            $endpoint = $action;
-            if (isset($option['params'])) {
-                $params = $option['params'];
-                foreach ($params as $paramKey => $param) {
-                    $endpoint .= '/'.$paramKey;
-                }
-            }
-
-            $route = Route::{$requestType}($endpoint, $option['controller'].'@'.$option['action']);
-            if (isset($params)) {
-                $route->where($params);
-            }
-            unset($params);
-        }
-    }
-
-    return $route;
-};
+Route::get('/list');
 
 Route::namespace('Api')->group(function () {
     // Controllers Within The "App\Http\Controllers\Admin" Namespace
@@ -100,11 +79,52 @@ Route::namespace('Api')->group(function () {
                     ]
                 ];
 
-                initRouteConfig($routConfigActions);
+                #initRouteConfig($routConfigActions);
+                $route = null;
+                foreach ($routConfigActions as $requestType => $action) {
+                    foreach ($action as $action => $option) {
+                        $endpoint = $action;
+                        if (isset($option['params'])) {
+                            $params = $option['params'];
+                            foreach ($params as $paramKey => $param) {
+                                $endpoint .= '/'.$paramKey;
+                            }
+                        }
+
+                        $route = Route::{$requestType}($endpoint, $option['controller'].'@'.$option['action']);
+                        if (isset($params)) {
+                            $route->where($params);
+                        }
+                        unset($params);
+                    }
+                }
             });
         }
     });
 });
+
+function initRouteConfig($actions) {
+    $route = null;
+    foreach ($actions as $requestType => $action) {
+        foreach ($action as $action => $option) {
+            $endpoint = $action;
+            if (isset($option['params'])) {
+                $params = $option['params'];
+                foreach ($params as $paramKey => $param) {
+                    $endpoint .= '/'.$paramKey;
+                }
+            }
+
+            $route = Route::{$requestType}($endpoint, $option['controller'].'@'.$option['action']);
+            if (isset($params)) {
+                $route->where($params);
+            }
+            unset($params);
+        }
+    }
+
+    return $route;
+};
 
 
 // @

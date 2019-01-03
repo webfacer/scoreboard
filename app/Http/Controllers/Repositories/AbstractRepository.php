@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Davor Ilic
+ * User: webfacer
  * Date: 12.05.2018
  * Time: 01:21
  */
@@ -12,6 +12,10 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
+/**
+ * Class AbstractRepository
+ * @package App\Http\Controllers\Repositories
+ */
 abstract class AbstractRepository
 {
     /**
@@ -30,7 +34,6 @@ abstract class AbstractRepository
     {
         if (class_exists($this->model)) {
             throw new \Exception('Unknown Model: '. $this->model);
-            exit();
         }
         /**
          * @todo change model to repository var name
@@ -83,9 +86,15 @@ abstract class AbstractRepository
     public function save(\Closure $closure)
     {
         $model = $closure($this->model);
+
         try {
-            $model->save();
-            $message = ['message' => 'success'];
+            if ($model instanceof Model) {
+                $model->save();
+                $message = ['message' => 'success'];
+            }
+            else {
+                $message = ['message' => ['failed' => 'Model is null! No model to update!']];
+            }
         } catch (ModelNotFoundException $e) {
             $message = ['message' => ['failed' => $e->getMessage()]];
         }

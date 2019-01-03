@@ -2,47 +2,27 @@
 /**
  * Created by PhpStorm.
  * User: Davor Ilic
- * Date: 10.06.2018
- * Time: 02:57
+ * Date: 19.06.2018
+ * Time: 23:29
  */
-namespace App\Model\Dto;
+namespace App\Model\Dto\Character;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 
-class GameCreateCommand extends Model
+class MatchCreateCommand extends Model
 {
     /**
-     * @var Request $request
+     * @var Request
      */
     protected $request;
 
+
     /**
-     * @var array $fillable
+     * CharacterCreateCommand constructor.
      */
-    protected $fillable = [
-        'request',
-    ];
-
-
     public function __construct()
     {
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id)
-    {
-        $this->id = $id;
     }
 
     /**

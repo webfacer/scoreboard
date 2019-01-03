@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Davor Ilic
+ * User: webfacer
  * Date: 25.03.2018
  * Time: 18:17
  */
@@ -9,9 +9,9 @@
 namespace App\Http\Controllers\Api;
 
 
-use App\Model\Dto\GameDeleteCommand;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Model\Dto\GameDeleteCommand;
 use App\Model\Dto\GameCreateCommand;
 use App\Model\Dto\GameUpdateCommand;
 use App\Http\Controllers\Repositories\GameRepository;

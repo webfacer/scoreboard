@@ -3,9 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Repositories\MatchesRepository;
 
-class MatcherController extends AbstractBasicController
+/**
+ * Class MatchesController
+ * @package App\Http\Controllers\Api
+ */
+class MatchesController extends AbstractBasicController
 {
+    public function __construct()
+    {
+        $this->repository = new MatchesRepository();
+    }
+
     /**
      * @param Request $request
      *
@@ -13,7 +23,7 @@ class MatcherController extends AbstractBasicController
      */
     public function create(Request $request)
     {
-        return $this->save(function ($model) use ($request) {
+        return $this->repository->save(function ($model) use ($request) {
             return $model->fill($request->all());
         });
     }

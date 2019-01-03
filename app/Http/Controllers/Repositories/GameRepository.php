@@ -17,6 +17,10 @@ use App\Model\Dto\GameCreateCommand;
 use App\Model\Dto\GameUpdateCommand;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class GameRepository
+ * @package App\Http\Controllers\Repositories
+ */
 class GameRepository extends Repository
 {
     protected $model;

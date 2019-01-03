@@ -2,29 +2,31 @@
 /**
  * Created by PhpStorm.
  * User: Davor Ilic
- * Date: 10.06.2018
- * Time: 02:57
+ * Date: 19.06.2018
+ * Time: 23:38
  */
-namespace App\Model\Dto;
+
+namespace App\Model\Dto\Character;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 
-class GameCreateCommand extends Model
+class MatchUpdateCommand extends Model
 {
+    /**
+     * @var int $id
+     */
+    protected $id;
+
     /**
      * @var Request $request
      */
     protected $request;
 
+
     /**
-     * @var array $fillable
+     * CharacterUpdateCommand constructor.
      */
-    protected $fillable = [
-        'request',
-    ];
-
-
     public function __construct()
     {
     }
