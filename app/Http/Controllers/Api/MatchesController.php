@@ -14,16 +14,7 @@ class MatcherController extends AbstractBasicController
     public function create(Request $request)
     {
         return $this->save(function ($model) use ($request) {
-            $model->fill([
-                'p1_id'         => $request->p1_id,
-                'p2_id'         => $request->p2_id,
-                'p1_score'      => $request->p1_score,
-                'p2_score'      => $request->p2_score,
-                'video_link'    => $request->video_link,
-                'note'          => $request->note,
-            ]);
-
-            return $model;
+            return $model->fill($request->all());
         });
     }
 
@@ -37,14 +28,7 @@ class MatcherController extends AbstractBasicController
     {
         return $this->update(function ($model) use ($request, $id) {
             $model = $model::find($id);
-            $model->fill([
-                'p1_id'         => $request->p1_id,
-                'p2_id'         => $request->p2_id,
-                'p1_score'      => $request->p1_score,
-                'p2_score'      => $request->p2_score,
-                'video_link'    => $request->video_link,
-                'note'          => $request->note,
-            ]);
+            $model->fill($request->all());
 
             return $model;
         });
