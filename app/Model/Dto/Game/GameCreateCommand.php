@@ -1,63 +1,109 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Davor Ilic
+ * User: webfacer
  * Date: 10.06.2018
  * Time: 02:57
  */
-namespace App\Model\Dto;
+namespace App\Model\Dto\Game;
 
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class GameCreateCommand
+ * @package App\Model\Dto
+ */
 class GameCreateCommand extends Model
 {
     /**
-     * @var Request $request
-     */
-    protected $request;
-
-    /**
      * @var array $fillable
      */
-    protected $fillable = [
-        'request',
-    ];
+    protected $fillable = ['name', 'initials', 'type', 'player_size'];
+
+    /**
+     * @var string name
+     */
+    protected $name;
+
+    /**
+     * @var string $initials
+     */
+    protected $initials;
+
+    /**
+     * @var string type
+     */
+    protected $type;
+
+    /**
+     * @var int $player_size
+     */
+    protected $player_size;
 
 
-    public function __construct()
+    public function __construct() {}
+
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInitials(): string
+    {
+        return $this->initials;
+    }
+
+    /**
+     * @param string $initials
+     */
+    public function setInitials(string $initials)
+    {
+        $this->initials = $initials;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type)
+    {
+        $this->type = $type;
     }
 
     /**
      * @return int
      */
-    public function getId(): int
+    public function getPlayerSize(): int
     {
-        return $this->id;
+        return $this->player_size;
     }
 
     /**
-     * @param int $id
+     * @param int $player_size
      */
-    public function setId(int $id)
+    public function setPlayerSize(int $player_size)
     {
-        $this->id = $id;
-    }
-
-    /**
-     * @return Request
-     */
-    public function getRequest(): Request
-    {
-        return $this->request;
-    }
-
-    /**
-     * @param Request $request
-     */
-    public function setRequest(Request $request)
-    {
-        $this->request = $request;
+        $this->player_size = $player_size;
     }
 }

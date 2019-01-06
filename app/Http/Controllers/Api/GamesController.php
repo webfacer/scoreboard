@@ -9,11 +9,9 @@
 namespace App\Http\Controllers\Api;
 
 
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use App\Model\Dto\GameDeleteCommand;
-use App\Model\Dto\GameCreateCommand;
-use App\Model\Dto\GameUpdateCommand;
+use App\Model\Dto\Game\GameCreateCommand;
+use App\Model\Dto\Game\GameDeleteCommand;
+use App\Model\Dto\Game\GameUpdateCommand;
 use App\Http\Controllers\Repositories\GameRepository;
 
 /**
@@ -27,66 +25,8 @@ class GamesController extends AbstractBasicController
     public function __construct()
     {
         $this->repository = new GameRepository();
-    }
-
-    /**
-     * @return \Illuminate\Http\JsonResponse|object
-     */
-    public function read()
-    {
-        return $this->repository->read();
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return JsonResponse
-     */
-    public function create(Request $request)
-    {
-        $gameCreateCommand = new GameCreateCommand;
-        $gameCreateCommand->fill([
-            'request'   => $request
-        ]);
-
-        return $this->repository->commandCreate($gameCreateCommand);
-    }
-
-
-    /**
-     * @param Request $request
-     * @param int $id
-     *
-     * @return JsonResponse
-     */
-    public function update(Request $request, $id)
-    {
-        $gameUpdateCommand = new GameUpdateCommand();
-        $gameUpdateCommand->fill([
-            'id'            => $id,
-            'request'       => $request,
-        ]);
-
-        return $this->repository->commandUpdate($gameUpdateCommand);
-    }
-
-
-    /**
-     * Delete Action
-     *
-     * @param Request $request
-     * @param int $id
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function delete(Request $request, int $id)
-    {
-        $gameDeleteCommand = new GameDeleteCommand();
-        $gameDeleteCommand->fill([
-            'id'        => $id,
-            'request'   => $request
-        ]);
-
-        return $this->repository->commandDelete($gameDeleteCommand);
+        $this->createCommand = new GameCreateCommand();
+        $this->updateCommand = new GameUpdateCommand();
+        $this->deleteCommand = new GameDeleteCommand();
     }
 }

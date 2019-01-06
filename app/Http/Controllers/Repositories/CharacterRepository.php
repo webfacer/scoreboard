@@ -10,15 +10,11 @@ namespace App\Http\Controllers\Repositories;
 
 
 use App\Model\Character;
-use DebugBar\DebugBar;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Model;
 use App\Model\Dto\Character\CharacterCreateCommand;
 use App\Model\Dto\Character\CharacterUpdateCommand;
 use App\Model\Dto\Character\CharacterDeleteCommand;
-use Symfony\Component\Debug\Debug;
-use Symfony\Component\Debug\Exception\FatalThrowableError;
 
 /**
  * Class CharacterRepository
@@ -27,6 +23,7 @@ use Symfony\Component\Debug\Exception\FatalThrowableError;
 class CharacterRepository extends Repository
 {
     protected $model;
+
 
     /**
      * CoinsController constructor.

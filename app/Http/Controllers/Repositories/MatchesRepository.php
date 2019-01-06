@@ -9,15 +9,13 @@
 namespace App\Http\Controllers\Repositories;
 
 
-use App\Model\Character;
 use App\Model\Match;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Dto\Character\CharacterCreateCommand;
-use App\Model\Dto\Character\CharacterUpdateCommand;
-use App\Model\Dto\Character\CharacterDeleteCommand;
+use App\Model\Dto\Match\MatchCreateCommand;
+use App\Model\Dto\Match\MatchUpdateCommand;
+use App\Model\Dto\Match\MatchDeleteCommand;
 
 /**
  * Class MatchesRepository
@@ -41,7 +39,7 @@ class MatchesRepository extends Repository
      *
      * @return JsonResponse
      */
-    public function commandCreate(CharacterCreateCommand $characterCreateCommand)
+    public function commandCreate(MatchCreateCommand $characterCreateCommand)
     {
         return $this->save(function($model) use ($characterCreateCommand) {
             return $model->fill(
@@ -55,7 +53,7 @@ class MatchesRepository extends Repository
      *
      * @return JsonResponse
      */
-    public function commandUpdate(MatchesUpdateCommand $characterUpdateCommand)
+    public function commandUpdate(MatchUpdateCommand $characterUpdateCommand)
     {
         return parent::update(function (Model $model) use ($characterUpdateCommand) {
             /** @var Request $request */
@@ -75,7 +73,7 @@ class MatchesRepository extends Repository
      *
      * @return JsonResponse
      */
-    public function commandDelete(CharacterDeleteCommand $characterDeleteCommand)
+    public function commandDelete(MatchDeleteCommand $characterDeleteCommand)
     {
         return parent::delete(function ($model) use ($characterDeleteCommand) {
             return $model::find($characterDeleteCommand->getAttribute('id'));

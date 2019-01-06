@@ -1,16 +1,14 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Davor Ilic
+ * User: webfacer
  * Date: 12.05.2018
  * Time: 01:42
  */
 
 namespace App\Http\Controllers\Repositories;
 
-
 use App\Model\Game;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Model\Dto\GameDeleteCommand;
 use App\Model\Dto\GameCreateCommand;
@@ -25,6 +23,7 @@ class GameRepository extends Repository
 {
     protected $model;
 
+
     /**
      * CoinsController constructor.
      * Initialize the Model
@@ -35,16 +34,14 @@ class GameRepository extends Repository
     }
 
     /**
-     * @param GameCreateCommand $
+     * @param GameCreateCommand $gameCreateCommand
      *
      * @return JsonResponse
      */
     public function commandCreate(GameCreateCommand $gameCreateCommand)
     {
-        return $this->save(function($model) use ($gameCreateCommand) {
-            return $model->fill(
-                $gameCreateCommand->getAttribute('request')->all()
-            );
+        return $this->save(function(Model $model) use ($gameCreateCommand) {
+            return $model->fill($gameCreateCommand->getAttributes());
         });
     }
 
@@ -56,10 +53,12 @@ class GameRepository extends Repository
     public function commandUpdate(GameUpdateCommand $gameUpdateCommand)
     {
         return parent::update(function (Model $model) use ($gameUpdateCommand) {
-            /** @var Request $request */
-            $request = $gameUpdateCommand->getAttribute('request');
+
             $model = $model::find( $gameUpdateCommand->getAttribute('id') );
-            $model->fill($request->all());
+
+            if ($model instanceof Model) {
+                $model->fill($gameUpdateCommand->getAttributes());
+            }
 
             return $model;
         });
@@ -74,8 +73,8 @@ class GameRepository extends Repository
      */
     public function commandDelete(GameDeleteCommand $gameDeleteCommand)
     {
-        return parent::delete(function ($model) use ($gameDeleteCommand) {
-            return $model::find($gameDeleteCommand->getAttribute('id'));
+        return parent::delete(function (Model $model) use ($gameDeleteCommand) {
+            return $model::where('id', $gameDeleteCommand->getAttribute('id'));
         });
     }
 }

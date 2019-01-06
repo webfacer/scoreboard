@@ -1,12 +1,12 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Davor Ilic
+ * User: webfacer
  * Date: 19.06.2018
  * Time: 23:35
  */
 
-namespace App\Model\Dto\Character;
+namespace App\Model\Dto\Match;
 
 use Illuminate\Database\Eloquent\Model;
 

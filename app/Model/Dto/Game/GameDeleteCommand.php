@@ -1,41 +1,34 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Davor Ilic
+ * User: webfacer
  * Date: 10.06.2018
  * Time: 02:57
  */
-namespace App\Model\Dto;
+namespace App\Model\Dto\Game;
 
 
-
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class GameDeleteCommand
+ * @package App\Model\Dto
+ */
 class GameDeleteCommand extends Model
 {
+
     /**
      * @var int $id
      */
     protected $id;
 
     /**
-     * @var Request $request
-     */
-    protected $request;
-
-    /**
      * @var array $fillable
      */
-    protected $fillable = [
-        'id',
-        'request',
-    ];
+    protected $fillable = ['id'];
 
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * @return int
@@ -51,21 +44,5 @@ class GameDeleteCommand extends Model
     public function setId(int $id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return Request
-     */
-    public function getRequest(): Request
-    {
-        return $this->request;
-    }
-
-    /**
-     * @param Request $request
-     */
-    public function setRequest(Request $request)
-    {
-        $this->request = $request;
     }
 }

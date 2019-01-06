@@ -5,37 +5,57 @@
  * Date: 10.06.2018
  * Time: 02:57
  */
-namespace App\Model\Dto;
+namespace App\Model\Dto\Game;
 
 
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class GameUpdateCommand
+ * @package App\Model\Dto
+ */
 class GameUpdateCommand extends Model
 {
     /**
      * @var int $id
      */
     protected $id;
-
-    /**
-     * @var Request $request
-     */
-    protected $request;
-
     /**
      * @var array $fillable
      */
     protected $fillable = [
         'id',
-        'request',
+        'name',
+        'initials',
+        'type',
+        'player_size'
     ];
 
 
-    public function __construct()
-    {
-    }
+    /**
+     * @var string name
+     */
+    protected $name;
+
+    /**
+     * @var string $initials
+     */
+    protected $initials;
+
+    /**
+     * @var string type
+     */
+    protected $type;
+
+    /**
+     * @var int $player_size
+     */
+    protected $player_size;
+
+
+    public function __construct() {}
 
     /**
      * @return int
@@ -54,18 +74,66 @@ class GameUpdateCommand extends Model
     }
 
     /**
-     * @return Request
+     * @return string
      */
-    public function getRequest(): Request
+    public function getName(): string
     {
-        return $this->request;
+        return $this->name;
     }
 
     /**
-     * @param Request $request
+     * @param string $name
      */
-    public function setRequest(Request $request)
+    public function setName(string $name)
     {
-        $this->request = $request;
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInitials(): string
+    {
+        return $this->initials;
+    }
+
+    /**
+     * @param string $initials
+     */
+    public function setInitials(string $initials)
+    {
+        $this->initials = $initials;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPlayerSize(): int
+    {
+        return $this->player_size;
+    }
+
+    /**
+     * @param int $player_size
+     */
+    public function setPlayerSize(int $player_size)
+    {
+        $this->player_size = $player_size;
     }
 }
