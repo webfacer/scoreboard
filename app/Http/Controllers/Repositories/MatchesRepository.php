@@ -35,31 +35,31 @@ class MatchesRepository extends Repository
     }
 
     /**
-     * @param MatchCreateCommand $characterCreateCommand
+     * @param MatchCreateCommand $matchCreateCommand
      *
      * @return JsonResponse
      */
-    public function commandCreate(MatchCreateCommand $characterCreateCommand)
+    public function commandCreate(MatchCreateCommand $matchCreateCommand)
     {
-        return $this->save(function($model) use ($characterCreateCommand) {
+        return $this->save(function($model) use ($matchCreateCommand) {
             return $model->fill(
-                $characterCreateCommand->getAttribute('request')->all()
+                $matchCreateCommand->getAttribute('request')->all()
             );
         });
     }
 
     /**
-     * @param MatchUpdateCommand $characterUpdateCommand
+     * @param MatchUpdateCommand $matchUpdateCommand
      *
      * @return JsonResponse
      */
-    public function commandUpdate(MatchUpdateCommand $characterUpdateCommand)
+    public function commandUpdate(MatchUpdateCommand $matchUpdateCommand)
     {
-        return parent::update(function (Model $model) use ($characterUpdateCommand) {
+        return parent::update(function (Model $model) use ($matchUpdateCommand) {
             /** @var Request $request */
-            $request = $characterUpdateCommand->getAttribute('request');
+            $request = $matchUpdateCommand->getAttribute('request');
             $model = $model::find(
-                $characterUpdateCommand->getAttribute('id')
+                $matchUpdateCommand->getAttribute('id')
             );
 
             $model->fill($request->all());
@@ -69,14 +69,14 @@ class MatchesRepository extends Repository
     }
 
     /**
-     * @param MatchDeleteCommand $characterDeleteCommand
+     * @param MatchDeleteCommand $matchDeleteCommand
      *
      * @return JsonResponse
      */
-    public function commandDelete(MatchDeleteCommand $characterDeleteCommand)
+    public function commandDelete(MatchDeleteCommand $matchDeleteCommand)
     {
-        return parent::delete(function ($model) use ($characterDeleteCommand) {
-            return $model::find($characterDeleteCommand->getAttribute('id'));
+        return parent::delete(function ($model) use ($matchDeleteCommand) {
+            return $model::find($matchDeleteCommand->getAttribute('id'));
         });
     }
 }
