@@ -35,7 +35,7 @@ class MatchesRepository extends Repository
     }
 
     /**
-     * @param CharacterCreateCommand $characterCreateCommand
+     * @param MatchCreateCommand $characterCreateCommand
      *
      * @return JsonResponse
      */
@@ -49,7 +49,7 @@ class MatchesRepository extends Repository
     }
 
     /**
-     * @param CharacterUpdateCommand $characterUpdateCommand
+     * @param MatchUpdateCommand $characterUpdateCommand
      *
      * @return JsonResponse
      */
@@ -69,7 +69,7 @@ class MatchesRepository extends Repository
     }
 
     /**
-     * @param CharacterDeleteCommand $characterDeleteCommand
+     * @param MatchDeleteCommand $characterDeleteCommand
      *
      * @return JsonResponse
      */

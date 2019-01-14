@@ -10,9 +10,9 @@ namespace App\Http\Controllers\Repositories;
 
 use App\Model\Game;
 use Illuminate\Http\JsonResponse;
-use App\Model\Dto\GameDeleteCommand;
-use App\Model\Dto\GameCreateCommand;
-use App\Model\Dto\GameUpdateCommand;
+use App\Model\Dto\Game\GameDeleteCommand;
+use App\Model\Dto\Game\GameCreateCommand;
+use App\Model\Dto\Game\GameUpdateCommand;
 use Illuminate\Database\Eloquent\Model;
 
 /**
