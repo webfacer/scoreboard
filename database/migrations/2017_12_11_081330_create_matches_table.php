@@ -15,8 +15,10 @@ class CreateMatchesTable extends Migration
     {
         Schema::create('matches', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('p1_id'); // comes from external API
-            $table->integer('p2_id'); // comes from external API
+            $table->enum('score_type', ['bo','ft']);
+            $table->integer('scoring');
+            $table->integer('p1_id');
+            $table->integer('p2_id');
             $table->integer('p1_score');
             $table->integer('p2_score');
             $table->string('type'); // gruge_match, casual, training, online_casual, online_rank, online_
