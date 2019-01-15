@@ -10,7 +10,6 @@ namespace App\Http\Controllers\Repositories;
 
 
 use App\Model\Match;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Model;
 use App\Model\Dto\Match\MatchCreateCommand;
@@ -23,8 +22,6 @@ use App\Model\Dto\Match\MatchDeleteCommand;
  */
 class MatchesRepository extends Repository
 {
-    protected $model;
-
     /**
      * CoinsController constructor.
      * Initialize the Model
@@ -41,10 +38,8 @@ class MatchesRepository extends Repository
      */
     public function commandCreate(MatchCreateCommand $matchCreateCommand)
     {
-        return $this->save(function($model) use ($matchCreateCommand) {
-            return $model->fill(
-                $matchCreateCommand->getAttribute('request')->all()
-            );
+        return $this->save(function(Model $model) use ($matchCreateCommand) {
+            return $model->fill($matchCreateCommand->getAttributes());
         });
     }
 
@@ -56,13 +51,11 @@ class MatchesRepository extends Repository
     public function commandUpdate(MatchUpdateCommand $matchUpdateCommand)
     {
         return parent::update(function (Model $model) use ($matchUpdateCommand) {
-            /** @var Request $request */
-            $request = $matchUpdateCommand->getAttribute('request');
-            $model = $model::find(
-                $matchUpdateCommand->getAttribute('id')
-            );
+            $model = $model::find($matchUpdateCommand->getAttribute('id'));
 
-            $model->fill($request->all());
+            if ($model instanceof Model) {
+                return $model->fill($matchUpdateCommand->getAttributes());
+            }
 
             return $model;
         });
@@ -75,8 +68,8 @@ class MatchesRepository extends Repository
      */
     public function commandDelete(MatchDeleteCommand $matchDeleteCommand)
     {
-        return parent::delete(function ($model) use ($matchDeleteCommand) {
-            return $model::find($matchDeleteCommand->getAttribute('id'));
+        return parent::delete(function (Model $model) use ($matchDeleteCommand) {
+            return $model::where('id', $matchDeleteCommand->getAttribute('id'));
         });
     }
 }

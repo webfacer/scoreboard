@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class MatchDeleteCommand extends Model
 {
+    protected $fillable = ['id'];
+
     /**
      * @var int $id
      */

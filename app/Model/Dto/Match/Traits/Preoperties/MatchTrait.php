@@ -2,24 +2,29 @@
 /**
  * Created by PhpStorm.
  * User: webfacer
- * Date: 19.06.2018
- * Time: 23:38
+ * Date: 15.01.2019
+ * Time: 19:33
  */
 
-namespace App\Model\Dto\Match;
+namespace App\Model\Dto\Match\Traits\Properties;
 
-use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class MatchUpdateCommand
- * @package App\Model\Dto\Character
- */
-class MatchUpdateCommand extends Model
+trait MatchTrait
 {
     /**
-     * @var int $id
+     * @var string $score_type
      */
-    protected $id;
+    protected $score_type;
+
+    /**
+     * @var integer $scoring
+     */
+    protected $scoring;
+
+    /**
+     * @var string $type
+     */
+    protected $type;
 
     /**
      * @var int $p1_id
@@ -58,19 +63,51 @@ class MatchUpdateCommand extends Model
     public function __construct() {}
 
     /**
-     * @return int
+     * @return string
      */
-    public function getId(): int
+    public function getScoreType(): string
     {
-        return $this->id;
+        return $this->score_type;
     }
 
     /**
-     * @param int $id
+     * @param string $score_type
      */
-    public function setId(int $id)
+    public function setScoreType(string $score_type): void
     {
-        $this->id = $id;
+        $this->score_type = $score_type;
+    }
+
+    /**
+     * @return int
+     */
+    public function getScoring(): int
+    {
+        return $this->scoring;
+    }
+
+    /**
+     * @param int $scoring
+     */
+    public function setScoring(int $scoring): void
+    {
+        $this->scoring = $scoring;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type): void
+    {
+        $this->type = $type;
     }
 
     /**

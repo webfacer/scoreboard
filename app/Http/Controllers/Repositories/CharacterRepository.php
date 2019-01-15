@@ -22,9 +22,6 @@ use App\Model\Dto\Character\CharacterDeleteCommand;
  */
 class CharacterRepository extends Repository
 {
-    protected $model;
-
-
     /**
      * CoinsController constructor.
      * Initialize the Model
