@@ -26,7 +26,8 @@ Route::namespace('Api')->group(function () {
     // Controllers Within The "App\Http\Controllers\Admin" Namespace
     Route::prefix('api/v1')->group(function () {
         #Route::post('coins/create', 'CoinsController@create');
-        $controllers = ['characters','games'];
+        $controllers = ['characters','games', 'matches'];
+
         foreach ($controllers as $controller) {
             // this is new and may be not working properly
             Route::prefix($controller)->group(function () use ($controller) {
