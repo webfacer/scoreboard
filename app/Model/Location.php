@@ -22,4 +22,9 @@ class Location extends AbstractModel
     {
         return $this->belongsToMany(Beer::class, 'beer_location', 'location_id');
     }
+
+    public function deliveryServices()
+    {
+        return $this->belongsToMany(DeliveryService::class, 'location_deliveryservice', 'location_id');
+    }
 }

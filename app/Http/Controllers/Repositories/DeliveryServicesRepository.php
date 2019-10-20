@@ -31,6 +31,13 @@ class DeliveryServicesRepository extends Repository
         parent::__construct(new DeliveryService());
     }
 
+    public function read(\Closure $closure): JsonResponse
+    {
+        return parent::read(function ($model) {
+            return $model::with('locations');
+        });
+    }
+
     /**
      * @param DeliveryServiceCreateCommand $matchCreateCommand
      *

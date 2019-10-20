@@ -37,7 +37,7 @@ class LocationRepository extends Repository
     public function read(\Closure $closure): JsonResponse
     {
         return parent::read(function ($model) {
-            return $model::with('beers');
+            return $model::with(['beers', 'deliveryServices']);
         });
     }
 
