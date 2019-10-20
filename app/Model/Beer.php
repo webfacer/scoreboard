@@ -17,6 +17,6 @@ class Beer extends AbstractModel
      */
     public function locations()
     {
-        return $this->belongsToMany(Beer::class, 'beer_location', 'beer_id');
+        return $this->belongsToMany(Location::class, 'beer_location', 'beer_id');
     }
 }
