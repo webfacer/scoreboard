@@ -8,8 +8,6 @@ use App\Model\Traits\GetAttributesTrait;
 
 trait LocationTrait
 {
-    use GetAttributesTrait;
-
     /**
      * @var string
      */
