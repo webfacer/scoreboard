@@ -32,6 +32,13 @@ class BeerRepository extends Repository
         parent::__construct(new Beer());
     }
 
+    public function read(\Closure $closure): JsonResponse
+    {
+        return parent::read(function ($model) {
+            return $model::with('locations');
+        });
+    }
+
     /**
      * @param BeerCreateCommand $beerCreateCommand
      *
