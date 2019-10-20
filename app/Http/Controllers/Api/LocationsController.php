@@ -22,7 +22,7 @@ use App\Http\Controllers\Repositories\LocationRepository;
  */
 class LocationsController extends AbstractBasicController
 {
-    public function __construct()
+    public function beforeInit()
     {
         $this->repository = new LocationRepository();
         $this->createCommand = new LocationCreateCommand();
