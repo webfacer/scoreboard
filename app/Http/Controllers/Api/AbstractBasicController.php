@@ -52,7 +52,9 @@ abstract class AbstractBasicController extends Controller
      */
     public function read()
     {
-        return $this->repository->read();
+        return $this->repository->read(function ($model) {
+            return $model;
+        });
     }
 
     /**

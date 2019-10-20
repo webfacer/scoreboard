@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers\Repositories;
 
+use App\Model\Beer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -44,32 +45,17 @@ abstract class AbstractRepository
     }
 
     /**
-     * @param array $whereClause Should hold multi-dimensional array like
-     * [[id => 1],[symbol => 'Tt']] or one-dimensional [id => 1]
+     * @param \Closure $closure
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function read(array $whereClause = []): JsonResponse
+    public function read(\Closure $closure): JsonResponse
     {
-        $data = null;
-        $modelName = $this->model;
-        foreach ($whereClause as $key => $value) {
-            if (count($value) == 2) {
-                $model = $modelName::where($key, $value[0], $value[1]);
-            }
-            else {
-                foreach ($value as $kv => $vv) {
-                    if (! isset($model)) {
-                        $model = $modelName::where($kv, $vv[0], $vv[1]);
-                    }
-                    else {
-                        $model->where($kv, $vv[0], $vv[1]);
-                    }
-                }
-            }
-        };
+        $model = $closure($this->model);
 
-        if (isset($this->model)) {
-            $data = $this->model->get();
+        $data = null;
+        if (isset($model)) {
+            $data = $model->get();
         }
 
         return response()->json($data);
