@@ -22,9 +22,8 @@ class CreateBeersTable extends Migration
             $table->string('user_id')->nullable();
             $table->string('brewed_by_id')->nullable();
             #$table->string('style')->nullable();
-            $table->string('barcode')->nullable();
-            $table->integer('per_mille')->nullable();
-            $table->integer('alcohol_by_volume')->nullable();
+            $table->integer('barcode')->nullable();
+            $table->float('alcohol_by_volume', 3, 1)->nullable();
             $table->integer('international_bitterness_unit')->nullable();
             $table->longText('description')->nullable();
         });
