@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Controllers\Repositories\AbstractRepository;
+use App\Repositories\AbstractRepository;
 
 abstract class AbstractBasicController extends Controller
 {

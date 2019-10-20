@@ -6,7 +6,7 @@
  * Time: 01:42
  */
 
-namespace App\Http\Controllers\Repositories;
+namespace App\Repositories;
 
 
 use App\Model\Beer;

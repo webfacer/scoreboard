@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 
-use Illuminate\Http\Request;
+use App\Repositories\BeerRepository;
 use App\Model\Dto\Beer\BeerCreateCommand;
 use App\Model\Dto\Beer\BeerDeleteCommand;
 use App\Model\Dto\Beer\BeerUpdateCommand;
-use App\Http\Controllers\Repositories\BeerRepository;
 
 /**
  * Class CharactersController

@@ -9,10 +9,10 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Repositories\LocationRepository;
 use App\Model\Dto\Location\LocationCreateCommand;
 use App\Model\Dto\Location\LocationDeleteCommand;
 use App\Model\Dto\Location\LocationUpdateCommand;
-use App\Http\Controllers\Repositories\LocationRepository;
 
 /**
  * Class GamesController

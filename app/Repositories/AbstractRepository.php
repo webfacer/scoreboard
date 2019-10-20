@@ -6,9 +6,8 @@
  * Time: 01:21
  */
 
-namespace App\Http\Controllers\Repositories;
+namespace App\Repositories;
 
-use App\Model\Beer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
