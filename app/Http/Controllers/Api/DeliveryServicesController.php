@@ -14,7 +14,7 @@ use App\Http\Controllers\Repositories\DeliveryServicesRepository;
  */
 class DeliveryServicesController extends AbstractBasicController
 {
-    public function __construct()
+    public function beforeInit()
     {
         $this->repository = new DeliveryServicesRepository();
         $this->createCommand = new DeliveryServiceCreateCommand();

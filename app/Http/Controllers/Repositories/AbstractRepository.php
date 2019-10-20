@@ -90,13 +90,19 @@ abstract class AbstractRepository
         try {
             if ($model instanceof Model) {
                 $model->save();
-                $message = ['message' => 'success'];
+                $message = $this->successMessage($model);
             }
             else {
-                $message = ['message' => ['failed' => 'Model is null! No model to update!']];
+                $message = [
+                    'message' => 'Model is null! No model to update!',
+                    'success' => false,
+                ];
             }
         } catch (ModelNotFoundException $e) {
-            $message = ['message' => ['failed' => $e->getMessage()]];
+            $message = [
+                'message' => $e->getMessage(),
+                'success' => false,
+            ];
         }
         return response()->json($message);
     }
@@ -110,9 +116,13 @@ abstract class AbstractRepository
      */
     public function update(\Closure $closure)
     {
-        return $this->save(function (Model $model) use ($closure) {
+        $model = $this->save(function (Model $model) use ($closure) {
             return $closure($model);
         });
+
+        $message = $this->successMessage($model);
+
+        return response()->json($message);
     }
 
 
@@ -134,6 +144,16 @@ abstract class AbstractRepository
         }
 
         return response()->json($message);
+    }
+
+    private function successMessage($model = null): array
+    {
+        $message['success'] = true;
+
+        if (isset($model) && $model instanceof Model) {
+            $message['content'] = $model;
+        }
+        return $message;
     }
 
     /**

@@ -64,10 +64,10 @@ abstract class AbstractBasicController extends Controller
      */
     public function create(Request $request)
     {
-        $create = $this->createCommand;
-        $create->fill($request->all());
+        $command = $this->createCommand;
+        $command->fill($request->all());
 
-        return $this->repository->commandCreate($create);
+        return $this->repository->commandCreate($command);
     }
 
 
@@ -79,12 +79,12 @@ abstract class AbstractBasicController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        $update = $this->updateCommand;
+        $command = $this->updateCommand;
         $fill = $request->all();
         $fill['id'] = $id;
-        $update->fill($fill);
+        $command->fill($fill);
 
-        return $this->repository->commandUpdate($update);
+        return $this->repository->commandUpdate($command);
     }
 
 
@@ -98,9 +98,9 @@ abstract class AbstractBasicController extends Controller
      */
     public function delete(int $id)
     {
-        $delete = $this->deleteCommand;
-        $delete->fill(['id' => $id]);
+        $command = $this->deleteCommand;
+        $command->fill(['id' => $id]);
 
-        return $this->repository->commandDelete($delete);
+        return $this->repository->commandDelete($command);
     }
 }
