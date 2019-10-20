@@ -48,7 +48,7 @@ class LocationRepository extends Repository
      */
     public function commandCreate(LocationCreateCommand $locationCreateCommand)
     {
-        return $this->save(function(Model $model) use ($locationCreateCommand) {
+        return parent::save(function(Model $model) use ($locationCreateCommand) {
             return $model->fill($locationCreateCommand->getAttributes());
         });
     }
