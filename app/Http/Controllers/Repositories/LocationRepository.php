@@ -37,7 +37,12 @@ class LocationRepository extends Repository
     public function read(\Closure $closure): JsonResponse
     {
         return parent::read(function ($model) {
-            return $model::with(['beers', 'deliveryServices']);
+            return $model::with([
+                'beers' => function ($query) {
+                    $query->orderBy('created_at', 'desc');
+                },
+                'deliveryServices'
+            ]);
         });
     }
 

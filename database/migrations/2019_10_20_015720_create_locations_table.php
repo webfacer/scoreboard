@@ -24,7 +24,6 @@ class CreateLocationsTable extends Migration
             $table->string('mobile_number')->nullable();
             $table->dateTime('shop_hours')->nullable()->default(null);
             $table->dateTime('delivery_hours')->nullable()->default(null);
-
         });
     }
 
