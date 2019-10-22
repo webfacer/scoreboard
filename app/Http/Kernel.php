@@ -25,6 +25,7 @@ class Kernel extends HttpKernel
         #\App\Http\Middleware\JWTAuthToken::class
         #\Tymon\JWTAuth\Middleware\GetUserFromToken::class,
         #\Tymon\JWTAuth\Middleware\RefreshToken::class,
+        \App\Http\Middleware\Cors::class,
     ];
 
     /**

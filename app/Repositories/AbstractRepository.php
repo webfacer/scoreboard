@@ -6,7 +6,7 @@
  * Time: 01:21
  */
 
-namespace App\Http\Controllers\Repositories;
+namespace App\Repositories;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Model;
@@ -44,32 +44,17 @@ abstract class AbstractRepository
     }
 
     /**
-     * @param array $whereClause Should hold multi-dimensional array like
-     * [[id => 1],[symbol => 'Tt']] or one-dimensional [id => 1]
+     * @param \Closure $closure
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function read(array $whereClause = []): JsonResponse
+    public function read(\Closure $closure): JsonResponse
     {
-        $data = null;
-        $modelName = $this->model;
-        foreach ($whereClause as $key => $value) {
-            if (count($value) == 2) {
-                $model = $modelName::where($key, $value[0], $value[1]);
-            }
-            else {
-                foreach ($value as $kv => $vv) {
-                    if (! isset($model)) {
-                        $model = $modelName::where($kv, $vv[0], $vv[1]);
-                    }
-                    else {
-                        $model->where($kv, $vv[0], $vv[1]);
-                    }
-                }
-            }
-        };
+        $model = $closure($this->model);
 
-        if (isset($this->model)) {
-            $data = $this->model->get();
+        $data = null;
+        if (isset($model)) {
+            $data = $model->get();
         }
 
         return response()->json($data);
@@ -90,13 +75,19 @@ abstract class AbstractRepository
         try {
             if ($model instanceof Model) {
                 $model->save();
-                $message = ['message' => 'success'];
+                $message = $this->successMessage($model);
             }
             else {
-                $message = ['message' => ['failed' => 'Model is null! No model to update!']];
+                $message = [
+                    'message' => 'Model is null! No model to update!',
+                    'success' => false,
+                ];
             }
         } catch (ModelNotFoundException $e) {
-            $message = ['message' => ['failed' => $e->getMessage()]];
+            $message = [
+                'message' => $e->getMessage(),
+                'success' => false,
+            ];
         }
         return response()->json($message);
     }
@@ -110,9 +101,13 @@ abstract class AbstractRepository
      */
     public function update(\Closure $closure)
     {
-        return $this->save(function (Model $model) use ($closure) {
+        $model = $this->save(function (Model $model) use ($closure) {
             return $closure($model);
         });
+
+        $message = $this->successMessage($model);
+
+        return response()->json($message);
     }
 
 
@@ -134,6 +129,16 @@ abstract class AbstractRepository
         }
 
         return response()->json($message);
+    }
+
+    private function successMessage($model = null): array
+    {
+        $message['success'] = true;
+
+        if (isset($model) && $model instanceof Model) {
+            $message['content'] = $model;
+        }
+        return $message;
     }
 
     /**

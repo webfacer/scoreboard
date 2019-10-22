@@ -6,7 +6,7 @@
  * Time: 03:44
  */
 
-namespace App\Http\Controllers\Repositories;
+namespace App\Repositories;
 
 
 use Illuminate\Http\JsonResponse;
