@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Controllers\Repositories\AbstractRepository;
+use App\Repositories\AbstractRepository;
 
 abstract class AbstractBasicController extends Controller
 {
@@ -52,7 +52,9 @@ abstract class AbstractBasicController extends Controller
      */
     public function read()
     {
-        return $this->repository->read();
+        return $this->repository->read(function ($model) {
+            return $model;
+        });
     }
 
     /**
@@ -64,10 +66,10 @@ abstract class AbstractBasicController extends Controller
      */
     public function create(Request $request)
     {
-        $createCommand = $this->createCommand;
-        $createCommand->fill($request->all());
+        $command = $this->createCommand;
+        $command->fill($request->all());
 
-        return $this->repository->commandCreate($createCommand);
+        return $this->repository->commandCreate($command);
     }
 
 
@@ -79,12 +81,12 @@ abstract class AbstractBasicController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        $updateCommand = $this->updateCommand;
+        $command = $this->updateCommand;
         $fill = $request->all();
         $fill['id'] = $id;
-        $updateCommand->fill($fill);
+        $command->fill($fill);
 
-        return $this->repository->commandUpdate($updateCommand);
+        return $this->repository->commandUpdate($command);
     }
 
 
@@ -98,9 +100,9 @@ abstract class AbstractBasicController extends Controller
      */
     public function delete(int $id)
     {
-        $deleteCommand = $this->deleteCommand;
-        $deleteCommand->fill(['id' => $id]);
+        $command = $this->deleteCommand;
+        $command->fill(['id' => $id]);
 
-        return $this->repository->commandDelete($deleteCommand);
+        return $this->repository->commandDelete($command);
     }
 }
