@@ -1,9 +1,11 @@
 <?php
 
 $routes = [
-    'beers',
-    'locations',
-    'delivery_services',
+    'characters',
+    'games',
+    'matches',
+    'players',
+    'teams',
 ];
 
 Route::namespace('Auth')->group(function () {
